@@ -1,4 +1,4 @@
-CFG_BASE="padavan-ng/trunk/configs/boards/TPLINK/TL_WR840N-V4_USB"
+CFG_BASE="padavan-ng/trunk/configs/boards/TPLINK/TL_WR841N-V13_USB"
 TPLINK_BASE="padavan-ng/trunk/configs/boards/TPLINK"
 TOOLS_BASE="padavan-ng/trunk/tools/mktplinkfw"
 
