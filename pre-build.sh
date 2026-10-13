@@ -2,6 +2,13 @@ CFG_BASE="padavan-ng/trunk/configs/boards/TPLINK/TL_WR841N-V13_USB"
 TPLINK_BASE="padavan-ng/trunk/configs/boards/TPLINK"
 TOOLS_BASE="padavan-ng/trunk/tools/mktplinkfw"
 
+
+# Фикс ошибки BusyBox (отключаем iplink, несовместимый с ядром без IPv6)
+if [ -f "$BBOX_BASE/busybox-1.37.x.config" ]; then
+  sed -i 's/CONFIG_IP=y/CONFIG_IP=n/' "$BBOX_BASE/busybox-1.37.x.config"
+  sed -i 's/CONFIG_IPLINK=y/CONFIG_IPLINK=n/' "$BBOX_BASE/busybox-1.37.x.config"
+fi
+
 # kernel config
 sed -i \
   -e 's/^CONFIG_RT2880_FLASH_8M=y/# CONFIG_RT2880_FLASH_8M is not set/' \
