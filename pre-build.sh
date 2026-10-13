@@ -3,22 +3,6 @@ TPLINK_BASE="padavan-ng/trunk/configs/boards/TPLINK"
 TOOLS_BASE="padavan-ng/trunk/tools/mktplinkfw"
 
 
-# Откатываем BusyBox на стабильную ветку 1.36.x, чтобы избежать конфликтов из-за отключенного IPv6
-if [ -d "$BBOX_BASE/busybox-1.36.0" ] || [ -d "$BBOX_BASE/busybox-1.36.1" ] || [ -f "$BBOX_BASE/Makefile" ]; then
-  # Если в репозитории есть конфиг для 1.36, принудительно подменяем ссылку на него в Makefile
-  sed -i 's/busybox-1.37.0/busybox-1.36.1/g' "$BBOX_BASE/Makefile" 2>/dev/null || true
-  sed -i 's/busybox-1.37.0/busybox-1.36.0/g' "$BBOX_BASE/Makefile" 2>/dev/null || true
-fi
-
-# Универсальный фикс: если все же собирается 1.37, отключаем в нем проблемную сетевую утилиту 'ip' целиком
-if [ -f "$BBOX_BASE/busybox-1.37.x.config" ]; then
-  sed -i 's/CONFIG_IP=y/CONFIG_IP=n/' "$BBOX_BASE/busybox-1.37.x.config"
-  sed -i 's/CONFIG_IPADDR=y/CONFIG_IPADDR=n/' "$BBOX_BASE/busybox-1.37.x.config"
-  sed -i 's/CONFIG_IPLINK=y/CONFIG_IPLINK=n/' "$BBOX_BASE/busybox-1.37.x.config"
-  sed -i 's/CONFIG_IPROUTE=y/CONFIG_IPROUTE=n/' "$BBOX_BASE/busybox-1.37.x.config"
-fi
-
-
 # kernel config
 sed -i \
   -e 's/^CONFIG_RT2880_FLASH_8M=y/# CONFIG_RT2880_FLASH_8M is not set/' \
